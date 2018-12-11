@@ -15,7 +15,7 @@ print (data)
  
 ggplot(data,aes(x='x',y='y'))+geom_point()+theme_classic()
 
-def nllike(p,obs):
+def line(p,obs):
     B0=p[0]
     B1=p[1]
     sigma=p[2]
@@ -24,7 +24,7 @@ def nllike(p,obs):
     return nll
 
 initialGuess=numpy.array([1,1,1])
-fit=minimize(nllike,initialGuess,method="Nelder-Mead",options={'disp': True},args=data)
+fit=minimize(line,initialGuess,method="Nelder-Mead",options={'disp': True},args=data)
 
     
 def quad(p,obs):
@@ -40,6 +40,8 @@ initialGuess=numpy.array([1,1,1,1])
 fit2=minimize(quad,initialGuess,method="Nelder-Mead",options={'disp': True},args=data)
 
 from scipy import stats 
+
+print (fit,fit2)
 
 teststat=2*(fit.fun-fit2.fun)
 df=len(fit2.x)-len(fit.x)
